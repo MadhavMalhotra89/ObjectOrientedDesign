@@ -15,19 +15,21 @@ Class LRU:
     self.tail.prev = self.head
     
   def get(self, key):
-    if key in self.lru
-      
+    if key in self.lru:
+      node = self.tail.prev
+      if node.key != key:
+        value = self.dic[key]
+        self._remove(key)
+        self._add(key,value)
+      return self.dic[key]
     else:
       return -1
   def put(self, key, value):
-    
-    
-  def add(self, key, value):
     if key in self.lru and self.lru[key] == value:
       return self.lru[key]
     if key in self.lru and self.lru[key] != value:
-      remove(key)
-      add(key, value)
+      self.remove(key)
+      self.add(key, value)
       self.lru[key] = value
     elif len(self.lru) == self.capacity:
       node = self.head.next
@@ -35,7 +37,16 @@ Class LRU:
       self._add(key,value)
     else:
       self._add(key,value)
-  def remove(self, key):
+    
+  def _add(self, key, value):
+    newNode = LinkedList(key, value)
+    temp = self.tail.prev
+    temp.next = newNode
+    self.tail.prev = newNode
+    newNode.next = self.tail
+    newNode.prev = temp
+    self.lru[newNode.key] = value
+  def _remove(self, key):
     temp = self.head
     while True:
       if temp.key == key:
