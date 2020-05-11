@@ -6,3 +6,4 @@ class RequestStatus(Enum):
   READ = 1
   ACCEPTED = 2
   REJECTED = 3
+
